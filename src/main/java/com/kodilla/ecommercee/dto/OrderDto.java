@@ -10,5 +10,4 @@ import java.util.List;
 public class OrderDto {
     private Long id;
     private String name;
-    private List<ProductDto> productsList;
 }
