@@ -1,5 +1,6 @@
-package com.kodilla.ecommercee.dto;
+package com.kodilla.ecommercee.dto.cart;
 
+import com.kodilla.ecommercee.dto.product.ProductDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

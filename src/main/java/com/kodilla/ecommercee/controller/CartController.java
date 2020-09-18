@@ -1,9 +1,9 @@
 package com.kodilla.ecommercee.controller;
 
 
-import com.kodilla.ecommercee.dto.CartDto;
-import com.kodilla.ecommercee.dto.OrderDto;
-import com.kodilla.ecommercee.dto.ProductDto;
+import com.kodilla.ecommercee.dto.cart.CartDto;
+import com.kodilla.ecommercee.dto.order.OrderDto;
+import com.kodilla.ecommercee.dto.product.ProductDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,7 +36,7 @@ public class CartController {
     public boolean deleteProduct(@PathVariable Long productId) {
         return cartDto.getProductDtoList().remove(productId);
     }
-    //utworzenie zamówienia na podstawie koszyka
+    //utworzenieg zamówienia na podstawie koszyka
     @PostMapping("/createOrder")
     public OrderDto createOrder(@RequestBody OrderDto orderDto) {
         return orderDto;
