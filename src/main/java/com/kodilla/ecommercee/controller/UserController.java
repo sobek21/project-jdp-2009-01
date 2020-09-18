@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/v1")
+@RequestMapping("/v1/user")
 public class UserController {
     @RequestMapping(method = RequestMethod.POST, value = "createUser")
     public void createUser(@RequestBody UserDto userDto) {
