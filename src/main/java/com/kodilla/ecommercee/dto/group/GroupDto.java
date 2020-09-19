@@ -2,8 +2,8 @@ package com.kodilla.ecommercee.dto.group;
 
 
 public class GroupDto {
-    private long id;
-    private String name;
+    private final long id;
+    private final String name;
 
     public GroupDto(long id, String name) {
         this.id = id;
