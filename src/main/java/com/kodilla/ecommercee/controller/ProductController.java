@@ -16,17 +16,17 @@ public class ProductController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getProduct")
-    public Object getProduct(@RequestParam(value = "productId") Long id) {
+    public ProductDto getProduct(@RequestParam(value = "productId") Long id) {
         return new ProductDto(1L, "test_product_name", 13.13, 100);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createProduct")
-    public void createProduct(@RequestBody Object object) {
+    public void createProduct(@RequestBody ProductDto productDto) {
 
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateProduct")
-    public Object updateProduct(@RequestBody ProductDto productDto) {
+    public ProductDto updateProduct(@RequestBody ProductDto productDto) {
         return new ProductDto(1L, "edited_test_product_name", 9.99, 150);
     }
 
