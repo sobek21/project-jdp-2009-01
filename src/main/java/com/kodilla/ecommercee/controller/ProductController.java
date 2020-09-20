@@ -1,6 +1,5 @@
 package com.kodilla.ecommercee.controller;
 
-
 import com.kodilla.ecommercee.dto.product.ProductDto;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +32,5 @@ public class ProductController {
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteProduct")
     public void deleteProduct(@RequestParam(value = "productId") Long id) {
-
     }
 }
