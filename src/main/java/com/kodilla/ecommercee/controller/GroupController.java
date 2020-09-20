@@ -1,6 +1,5 @@
 package com.kodilla.ecommercee.controller;
 
-import com.kodilla.ecommercee.dto.GroupDto;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
@@ -32,6 +31,4 @@ public class GroupController {
     public GroupDto updateGroup(@RequestBody GroupDto groupDto) {
         return groupDto;
     }
-
-
 }
