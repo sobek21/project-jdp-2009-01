@@ -3,11 +3,9 @@ package com.kodilla.ecommercee.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.List;
-
-@Getter
 @AllArgsConstructor
+@Getter
 public class OrderDto {
-    private Long id;
-    private String name;
+    private long id;
+    private String description;
 }
