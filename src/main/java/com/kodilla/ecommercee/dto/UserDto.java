@@ -28,5 +28,4 @@ public class UserDto {
     public String getLastname() {
         return lastname;
     }
-
 }
