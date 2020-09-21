@@ -1,6 +1,6 @@
 package com.kodilla.ecommercee.controller;
 
-import com.kodilla.ecommercee.dto.user.UserDto;
+import com.kodilla.ecommercee.dto.UserDto;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*")
