@@ -34,5 +34,4 @@ dependencies {
     annotationProcessor('org.projectlombok:lombok')
 
     compile 'mysql:mysql-connector-java'
-
 }
