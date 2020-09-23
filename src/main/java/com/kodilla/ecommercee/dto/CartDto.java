@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -13,5 +14,5 @@ public class CartDto {
 
     private Long cartId;
     private Long userId;
-    private List<ProductDto> productDtoList;
+    private List<ProductDto> productDtoList = new ArrayList<>();
 }
