@@ -2,30 +2,28 @@ package com.kodilla.ecommercee.dto;
 
 public class UserDto {
     private long userId;
+    private long userKey;
     private String username;
-    private String firstname;
-    private String lastname;
+    private String password;
 
-    public UserDto(final long userId, final String username, final String firstname, final String lastname) {
-        this.userId = userId;
+    public UserDto(final String username, final String password) {
         this.username = username;
-        this.firstname = firstname;
-        this.lastname = lastname;
+        this.password = password;
     }
 
     public long getUserId() {
         return userId;
     }
 
+    public long getUserKey() {
+        return userKey;
+    }
+
     public String getUsername() {
         return username;
     }
 
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
+    public String getPassword() {
+        return password;
     }
 }
