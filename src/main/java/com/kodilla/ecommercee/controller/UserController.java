@@ -13,8 +13,8 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "blockUser")
-    public Object blockUser(@RequestParam Long userId) {
-        return new UserDto(1L, "blockedusername", "blockedfirstname", "blockedlastname");
+    public UserDto blockUser(@RequestParam Long userId) {
+        return new UserDto("blockedUsername", "blockedPassword");
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createUserKey")
