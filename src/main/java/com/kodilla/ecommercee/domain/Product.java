@@ -1,10 +1,12 @@
 package com.kodilla.ecommercee.domain;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+@NoArgsConstructor
 @Getter
 @Entity(name = "PRODUCTS")
 public class Product {
@@ -13,6 +15,13 @@ public class Product {
     private String productName;
     private double productPrice;
     private int quantity;
+
+    public Product(Long productId, String productName, double productPrice, int quantity) {
+        this.productId = productId;
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.quantity = quantity;
+    }
 
     @Column(name = "NAME")
     public String getProductName() {
