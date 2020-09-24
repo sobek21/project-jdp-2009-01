@@ -8,6 +8,8 @@ import com.kodilla.ecommercee.dto.ProductDto;
 import com.kodilla.ecommercee.dto.UserDto;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/v1")
@@ -38,6 +40,6 @@ public class CartController {
 
     @PostMapping("/createOrder")
     public OrderDto createOrder(@RequestBody OrderDto orderDto) {
-        return new OrderDto(1L, new UserDto("john", "jsmith123"), new CartDto());
+        return new OrderDto(1L, new UserDto("john", "jsmith123"), new ArrayList<>());
     }
 }
