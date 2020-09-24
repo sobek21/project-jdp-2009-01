@@ -6,6 +6,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class OrderDto {
-    private long id;
-    private String description;
+    private Long orderId;
+    private UserDto user;
+    private CartDto cart;
 }

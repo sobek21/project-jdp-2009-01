@@ -5,6 +5,7 @@ package com.kodilla.ecommercee.controller;
 import com.kodilla.ecommercee.dto.CartDto;
 import com.kodilla.ecommercee.dto.OrderDto;
 import com.kodilla.ecommercee.dto.ProductDto;
+import com.kodilla.ecommercee.dto.UserDto;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*")
@@ -37,6 +38,6 @@ public class CartController {
 
     @PostMapping("/createOrder")
     public OrderDto createOrder(@RequestBody OrderDto orderDto) {
-        return new OrderDto(1,"Name");
+        return new OrderDto(1L, new UserDto("john", "jsmith123"), new CartDto());
     }
 }
