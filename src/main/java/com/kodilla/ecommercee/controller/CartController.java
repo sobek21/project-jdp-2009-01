@@ -7,6 +7,8 @@ import com.kodilla.ecommercee.dto.OrderDto;
 import com.kodilla.ecommercee.dto.ProductDto;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/v1")
@@ -25,14 +27,15 @@ public class CartController {
         return new CartDto();
     }
 
-    @PutMapping("/addProduct")
+    @PostMapping("/addProduct")
     public boolean addProduct(@RequestBody ProductDto productDto) {
         return new CartDto().getProductDtoList().add(productDto);
     }
 
     @DeleteMapping("/deleteProduct/{productId}")
     public boolean deleteProduct(@PathVariable Long productId) {
-        return new CartDto().getProductDtoList().remove(productId);
+        return new CartDto().getProductDtoList().removeIf(element -> element.getProductId() == productId);
+
     }
 
     @PostMapping("/createOrder")
