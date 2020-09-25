@@ -1,73 +1,30 @@
 package com.kodilla.ecommercee.domain;
 
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
+
+
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Entity(name = "PRODUCTS")
+@Entity(name = "PRODUCT")
 public class Product {
-    private Order order;
-    private Long productId;
-    private String productName;
-    private double productPrice;
-    private int quantity;
-
-    public Product(Long productId, String productName, double productPrice, int quantity) {
-        this.productId = productId;
-        this.productName = productName;
-        this.productPrice = productPrice;
-        this.quantity = quantity;
-    }
-
-    @Column(name = "NAME")
-    public String getProductName() {
-        return productName;
-    }
-
-    @Column(name = "PRICE")
-    public double getProductPrice() {
-        return productPrice;
-    }
-
-    @Column(name = "QUANTITY")
-    public int getQuantity() {
-        return quantity;
-    }
 
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "PRODUCT_ID")
-    public Long getProductId() {
-        return productId;
-    }
+    private Long productId;
 
-    @ManyToOne
-    public Order getOrder() {
-        return order;
-    }
+    @Column(name = "NAME", unique = true)
+    private String productName;
 
-    public void setOrder(Order order) {
-        this.order = order;
-    }
+    @Column(name = "PRICE")
+    private double productPrice;
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public void setProductPrice(double productPrice) {
-        this.productPrice = productPrice;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
+    @Column(name = "QUANTITY")
+    private int quantity;
 }
+
