@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 public class CartDto {
 
-    private Long cartId;
-    private Long userId;
+    private long cartId;
+    private long userId;
     private List<ProductDto> productDtoList = new ArrayList<>();
 }
