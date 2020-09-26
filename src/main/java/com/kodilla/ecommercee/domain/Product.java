@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -15,6 +17,7 @@ public class Product {
     private String productName;
     private double productPrice;
     private int quantity;
+    private List<Order> orders;
 
     public Product(Long productId, String productName, double productPrice, int quantity) {
         this.productId = productId;
@@ -46,9 +49,9 @@ public class Product {
         return productId;
     }
 
-    @ManyToOne
-    public Order getOrder() {
-        return order;
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
+    public List<Order> getOrders() {
+        return orders;
     }
 
     public void setOrder(Order order) {
@@ -69,5 +72,9 @@ public class Product {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }

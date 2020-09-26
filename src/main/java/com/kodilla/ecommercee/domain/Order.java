@@ -41,11 +41,12 @@ public class Order {
         return user;
     }
 
-    @OneToMany(
-            targetEntity = Product.class,
-            mappedBy = "order",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "ORDER_PRODUCT",
+            joinColumns = {@JoinColumn(name = "ORDER_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")}
+
     )
     public List<Product> getProducts() {
         return products;
