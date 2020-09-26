@@ -13,12 +13,13 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "PRODUCT")
+@Entity
+@Table(name = "PRODUCT")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "PRODUCT_ID")
+    @Column(name = "PRODUCT_ID", unique = true)
     private Long productId;
 
     @Column(name = "NAME", unique = true)
@@ -33,5 +34,6 @@ public class Product {
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     private List<Cart> carts = new ArrayList<>();
 
-
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
+    private List<Order> orders = new ArrayList<>();
 }
