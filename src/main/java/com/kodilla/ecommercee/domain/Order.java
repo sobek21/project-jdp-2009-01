@@ -19,7 +19,7 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ORDER_ID", unique = true)
+    @Column(name = "ORDER_ID")
     private Long orderId;
 
     @ManyToMany(cascade = CascadeType.ALL)
