@@ -5,12 +5,11 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
 @Getter
-@Entity(name = "PRODUCTS")
+@Entity(name = "PRODUCT")
 public class Product {
     private Order order;
     private Long productId;
@@ -43,7 +42,7 @@ public class Product {
 
     @Id
     @NotNull
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     @Column(name = "PRODUCT_ID")
     public Long getProductId() {
         return productId;

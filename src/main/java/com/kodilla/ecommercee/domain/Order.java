@@ -26,7 +26,7 @@ public class Order {
     @Id
     @GeneratedValue
     @NotNull
-    @Column(name = "ID", unique = true)
+    @Column(name = "ORDER_ID")
     public Long getOrderId() {
         return orderId;
     }
@@ -44,7 +44,7 @@ public class Order {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "ORDER_PRODUCT",
-            joinColumns = {@JoinColumn(name = "ORDER_ID", referencedColumnName = "ID")},
+            joinColumns = {@JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")},
             inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")}
 
     )
