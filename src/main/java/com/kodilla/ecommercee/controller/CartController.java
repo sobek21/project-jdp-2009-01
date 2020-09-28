@@ -25,7 +25,7 @@ public class CartController {
     }
 
     @PostMapping("/addProduct")
-    public CartDto addProduct(@RequestParam(value = "productId") @NotNull Long productId) {
+    public CartDto addProduct(@RequestParam Long cartId, @RequestParam Long productId) {
         return new CartDto();
     }
 
