@@ -11,7 +11,6 @@ import java.util.List;
 @Getter
 @Entity(name = "PRODUCT")
 public class Product {
-    private Order order;
     private Long productId;
     private String productName;
     private double productPrice;
@@ -51,10 +50,6 @@ public class Product {
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     public List<Order> getOrders() {
         return orders;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
     }
 
     public void setProductId(Long productId) {
