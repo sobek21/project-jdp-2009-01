@@ -6,18 +6,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.List;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Setter
 @Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity(name = "PRODUCT")
 public class Product {
     @Id
-    @NotNull
-    @GeneratedValue
     @Column(name = "PRODUCT_ID")
     private Long productId;
     @Column(name = "NAME")
@@ -28,4 +24,5 @@ public class Product {
     private int quantity;
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     private List<Order> orders;
-}
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
+    private List<Cart> carts = new ArrayList<>();

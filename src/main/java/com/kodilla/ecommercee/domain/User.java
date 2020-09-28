@@ -23,4 +23,9 @@ public class User {
     @NotNull
     @Column(name = "PASSWORD")
     private String password;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cart_id", referencedColumnName = "cart_id")
+    private Cart cart;
+
 }
