@@ -15,7 +15,7 @@ public class CartController {
 
 
     @PostMapping("/createCart")
-    public CartDto createCard(@RequestBody CartDto cartDto) {
+    public CartDto createCart(@RequestBody CartDto cartDto) {
         return new CartDto();
     }
 
