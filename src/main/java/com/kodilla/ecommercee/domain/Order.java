@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -18,8 +17,6 @@ public class Order {
     @NotNull
     @Column(name = "ORDER_ID")
     private Long orderId;
-    @Column(name = "ORDER_CREATED")
-    private Date created;
 
     @JoinColumn(name = "USER_ASSIGNEDTO_ORDER")
     @ManyToOne
@@ -37,6 +34,5 @@ public class Order {
     public Order(User user, List<Product> products) {
         this.user = user;
         this.products = products;
-        this.created = new Date();
     }
 }
