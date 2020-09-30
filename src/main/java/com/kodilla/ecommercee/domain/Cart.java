@@ -14,7 +14,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "CART")
+@Table(name = "CARTS")
 public class Cart {
 
     @Id
@@ -33,5 +33,8 @@ public class Cart {
     @OneToOne(mappedBy = "cart",cascade = CascadeType.ALL)
     private User User;
 
-
+    public Cart(long cartId, List<Product> products) {
+        this.cartId = cartId;
+        this.products = products;
+    }
 }

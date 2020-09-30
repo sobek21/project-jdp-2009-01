@@ -1,6 +1,6 @@
 package com.kodilla.ecommercee.repository;
 
-import com.kodilla.ecommercee.domain.Product;
+import com.kodilla.ecommercee.domain.Order;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,16 +10,16 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface ProductRepository extends CrudRepository<Product, Long> {
+public interface OrderDao extends CrudRepository<Order, Long> {
     @Override
-    List<Product> findAll();
+    List<Order> findAll();
 
     @Override
-    Optional<Product> findById(Long id);
+    Optional<Order> findById(Long id);
+
+    @Override
+    Order save(Order order);
 
     @Override
     void deleteById(Long id);
-
-    @Override
-    Product save(Product product);
 }
