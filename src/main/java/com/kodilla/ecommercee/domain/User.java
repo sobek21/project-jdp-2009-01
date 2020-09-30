@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
 @Table(name = "USERS")
 public class User {
 
@@ -43,4 +45,9 @@ public class User {
     )
     private List<Order> orders = new ArrayList<>();
 
+    public User(final String username, final String password, long userKey) {
+        this.username = username;
+        this.password = password;
+        this.userKey = userKey;
+    }
 }
