@@ -19,25 +19,17 @@ public class Product {
     @Id
     @Column(name = "PRODUCT_ID")
     private Long productId;
-
     @Column(name = "NAME")
     private String productName;
-
     @Column(name = "PRICE")
     private double productPrice;
-
     @Column(name = "QUANTITY")
     private int quantity;
-
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     private List<Order> orders;
-
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     private List<Cart> carts = new ArrayList<>();
 
-//    @ManyToOne
-//    @JoinColumn(name = "GROUP_ID")
-//    private Group group;
 
     public Product(Long productId, String productName, double productPrice, int quantity) {
         this.productId = productId;
