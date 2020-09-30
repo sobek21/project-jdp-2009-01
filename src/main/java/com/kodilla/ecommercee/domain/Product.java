@@ -15,23 +15,17 @@ import java.util.List;
 @AllArgsConstructor
 @Entity(name = "PRODUCT")
 public class Product {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "PRODUCT_ID")
     private Long productId;
-
-    @Column(name = "NAME", unique = true)
+    @Column(name = "NAME")
     private String productName;
-
     @Column(name = "PRICE")
     private double productPrice;
-
     @Column(name = "QUANTITY")
     private int quantity;
-
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
+    private List<Order> orders;
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     private List<Cart> carts = new ArrayList<>();
-
-
 }
