@@ -3,9 +3,9 @@ package com.kodilla.ecommercee.controller;
 import com.kodilla.ecommercee.dto.CartDto;
 import com.kodilla.ecommercee.dto.OrderDto;
 import com.kodilla.ecommercee.dto.ProductDto;
+import com.kodilla.ecommercee.dto.UserDto;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 
 @CrossOrigin(origins = "*")
@@ -34,7 +34,7 @@ public class CartController {
     }
 
     @PostMapping("/createOrder")
-    public OrderDto createOrder(@RequestParam(value = "cartId") @NotNull Long cartId) {
-        return new OrderDto(1, "Name");
+    public OrderDto createOrder(@RequestBody OrderDto orderDto) {
+        return new OrderDto(1L, new UserDto("john", "jsmith123"), new ArrayList<>());
     }
 }
