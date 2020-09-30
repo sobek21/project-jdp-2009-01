@@ -1,26 +1,26 @@
 package com.kodilla.ecommercee.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "ORDER")
+@Table(name = "ORDERS")
 public class Order {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
+    @NotNull
     @Column(name = "ORDER_ID")
     private Long orderId;
+
+    @JoinColumn(name = "USER_ASSIGNEDTO_ORDER")
+    @ManyToOne
+    private User user;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -29,5 +29,10 @@ public class Order {
             inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")}
 
     )
-    private List<Product> products = new ArrayList<>();
+    private List<Product> products;
+
+    public Order(User user, List<Product> products) {
+        this.user = user;
+        this.products = products;
+    }
 }
