@@ -21,5 +21,5 @@ public class Group {
     private Long groupId;
 
     @Column(name = "GROUP_NAME")
-    private String groupName
+    private String groupName;
 }
