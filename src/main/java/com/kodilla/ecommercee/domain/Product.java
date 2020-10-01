@@ -30,7 +30,7 @@ public class Product {
     private List<Cart> carts = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "group_id")
+    @JoinColumn(name = "group_id",referencedColumnName = "group_id")
     public Group group;
 
 }
