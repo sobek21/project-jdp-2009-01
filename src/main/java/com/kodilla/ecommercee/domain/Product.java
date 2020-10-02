@@ -17,9 +17,10 @@ import java.util.List;
 @Table(name = "PRODUCT")
 public class Product {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "PRODUCT_ID")
     private Long productId;
-    @Column(name = "NAME")
+    @Column(name = "NAME", unique = true)
     private String productName;
     @Column(name = "PRICE")
     private double productPrice;

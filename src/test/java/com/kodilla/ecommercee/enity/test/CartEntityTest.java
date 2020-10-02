@@ -44,6 +44,8 @@ public class CartEntityTest {
         cartDao.deleteById(id);
     }
 
+
+
     @Test
     public void testRelationBetweenUserAndCart() {
         //Given
@@ -60,8 +62,10 @@ public class CartEntityTest {
         //When
         cartDao.save(cart);
         long id = user.getCart().getCartId();
+        long id1 = cart.getCartId();
 
         //Then
+        Assert.assertTrue(id == id1);
         Assert.assertNotEquals(0, id);
 
         //CleanUp
@@ -116,5 +120,52 @@ public class CartEntityTest {
         } catch (Exception e) {
 
         }
+    }
+
+    @Test
+    public void testDeleteCart() {
+        //Given
+        Cart cart = new Cart();
+        Product product = new Product();
+        User user = new User();
+
+        product.setProductName("product");
+        product.setProductPrice(10);
+        product.setQuantity(100);
+
+        user.setUserKey(12345);
+        user.setUsername("Username");
+        user.setPassword("Password");
+        user.setCart(cart);
+        cart.setUser(user);
+
+        cart.getProducts().add(product);
+        product.getCarts().add(cart);
+
+        //When
+        cartDao.save(cart);
+        long id = cart.getCartId();
+        long id1 = user.getUserId();
+        long id2 = product.getProductId();
+        String testUsername = user.getUsername();
+        String testProductName = product.getProductName();
+
+        cartDao.deleteById(id);
+
+        Optional<User> testUser = userDao.findById(id1);
+        String username = testUser
+                .filter(tu -> tu.getUsername() == "Username")
+                .map(User::getUsername)
+                .orElseThrow(() -> new RuntimeException("NO USER"));
+
+        Optional<Product> testProduct = productDao.findById(id2);
+        String productName = testProduct
+                .filter(tp -> tp.getProductName() == "product")
+                .map(Product::getProductName)
+                .orElseThrow(() -> new RuntimeException("NO PRODUCT"));
+
+        //Then
+        Assert.assertTrue(username.equals(testUsername));
+        Assert.assertTrue(productName.equals(testProductName));
     }
 }
