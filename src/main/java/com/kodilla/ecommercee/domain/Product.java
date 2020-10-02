@@ -30,11 +30,7 @@ public class Product {
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     private List<Cart> carts = new ArrayList<>();
 
-
-    public Product(Long productId, String productName, double productPrice, int quantity) {
-        this.productId = productId;
-        this.productName = productName;
-        this.productPrice = productPrice;
-        this.quantity = quantity;
-    }
+    @ManyToOne
+    @JoinColumn(name = "group_id",referencedColumnName = "group_id")
+    public Group group;
 }
