@@ -7,12 +7,14 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
 @Table(name = "USERS")
 public class User {
 
@@ -37,4 +39,17 @@ public class User {
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
+    @OneToMany(
+            targetEntity = Order.class,
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    private List<Order> orders = new ArrayList<>();
+
+    public User(final String username, final String password, long userKey) {
+        this.username = username;
+        this.password = password;
+        this.userKey = userKey;
+    }
 }
