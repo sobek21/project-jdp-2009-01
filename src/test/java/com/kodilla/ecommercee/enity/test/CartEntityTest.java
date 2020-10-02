@@ -6,8 +6,7 @@ import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.repository.CartDao;
 import com.kodilla.ecommercee.repository.ProductDao;
 import com.kodilla.ecommercee.repository.UserDao;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +17,7 @@ import java.util.Optional;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CartEntityTest {
+
     @Autowired
     CartDao cartDao;
 
@@ -29,6 +29,7 @@ public class CartEntityTest {
 
     @Test
     public void testCartDaoSave() {
+
         //Given
         Cart cart = new Cart();
 
@@ -48,6 +49,7 @@ public class CartEntityTest {
 
     @Test
     public void testRelationBetweenUserAndCart() {
+
         //Given
         Cart cart = new Cart();
 
@@ -117,6 +119,8 @@ public class CartEntityTest {
         try {
             cartDao.deleteById(id);
             cartDao.deleteById(id1);
+            productDao.deleteAll();
+            userDao.deleteAll();
         } catch (Exception e) {
 
         }
@@ -129,12 +133,12 @@ public class CartEntityTest {
         Product product = new Product();
         User user = new User();
 
-        product.setProductName("product");
+        product.setProductName("testProduct");
         product.setProductPrice(10);
         product.setQuantity(100);
 
         user.setUserKey(12345);
-        user.setUsername("Username");
+        user.setUsername("testUsername");
         user.setPassword("Password");
         user.setCart(cart);
         cart.setUser(user);
@@ -154,18 +158,30 @@ public class CartEntityTest {
 
         Optional<User> testUser = userDao.findById(id1);
         String username = testUser
-                .filter(tu -> tu.getUsername() == "Username")
+                .filter(tu -> tu.getUsername() == "testUsername")
                 .map(User::getUsername)
                 .orElseThrow(() -> new RuntimeException("NO USER"));
 
+
         Optional<Product> testProduct = productDao.findById(id2);
         String productName = testProduct
-                .filter(tp -> tp.getProductName() == "product")
+                .filter(tp -> tp.getProductName() == "testProduct")
                 .map(Product::getProductName)
                 .orElseThrow(() -> new RuntimeException("NO PRODUCT"));
 
         //Then
         Assert.assertTrue(username.equals(testUsername));
         Assert.assertTrue(productName.equals(testProductName));
+
+        //CleanUp
+        try {
+            cartDao.deleteAll();
+            productDao.deleteAll();
+            userDao.deleteAll();
+        } catch (Exception e) {
+
+        }
+
+
     }
 }
