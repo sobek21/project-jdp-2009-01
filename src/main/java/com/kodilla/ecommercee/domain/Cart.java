@@ -22,15 +22,15 @@ public class Cart {
     @Column(name = "CART_ID")
     private long cartId;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "CART_PRODUCT",
             joinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")},
             inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")}
     )
-    private List<Product> products= new ArrayList<>();
+    private List<Product> products = new ArrayList<>();
 
-    @OneToOne(mappedBy = "cart",cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "cart",cascade = CascadeType.PERSIST)
     private User User;
 
 
