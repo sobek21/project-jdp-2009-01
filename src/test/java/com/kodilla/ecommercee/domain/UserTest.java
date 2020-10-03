@@ -122,7 +122,10 @@ public class UserTest {
     public void relationWithOrdersTest() {
         //given
         Order order = new Order();
-        User user = new User("Michał", "Hasło", 123);
+        User user = new User();
+        user.setPassword("New Password");
+        user.setUserKey(123L);
+        user.setUsername("New Name");
         order.setUser(user);
         user.setOrders(Collections.singletonList(order));
 
@@ -145,7 +148,10 @@ public class UserTest {
     public void relationWithCartsTest() {
         //given
         Cart cart = new Cart();
-        User user = new User("Michał", "Hasło", 123);
+        User user = new User();
+        user.setPassword("New Password");
+        user.setUserKey(123L);
+        user.setUsername("New Name");
         cart.setUser(user);
         user.setCart(cart);
         userDao.save(user);
