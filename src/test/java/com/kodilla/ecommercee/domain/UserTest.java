@@ -163,4 +163,42 @@ public class UserTest {
 
         //cleanUp
     }
+    @Test
+    public void compareIdOfOrderTest() {
+        //given
+        Order order = new Order();
+        User user = new User("Michał", "Hasło", 123);
+        order.setUser(user);
+        user.setOrders(Collections.singletonList(order));
+
+        //when
+        userDao.save(user);
+
+        //then
+        Assert.assertTrue(user.getOrders().contains(order));
+        Assert.assertEquals(order.getOrderId(), user.getOrders().get(0).getOrderId());
+
+        //cleanUp
+        userDao.delete(user);
+    }
+
+    @Test
+    public void compareIdOfCartTest() {
+        //given
+        Cart cart = new Cart();
+        User user = new User("Michał", "Hasło", 123);
+        cart.setUser(user);
+        user.setCart(cart);
+
+        //when
+        userDao.save(user);
+
+        //then
+        Assert.assertEquals(cart, user.getCart());
+        Assert.assertEquals(cart.getCartId(), user.getCart().getCartId());
+
+        //cleanUp
+        userDao.delete(user);
+
+    }
 }
