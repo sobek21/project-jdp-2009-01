@@ -1,38 +1,26 @@
 package com.kodilla.ecommercee.dto;
 
-import com.kodilla.ecommercee.domain.Cart;
-import com.kodilla.ecommercee.domain.Order;
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
-@AllArgsConstructor
-@Setter
 @Getter
+@JsonIgnoreProperties(allowSetters = true,value = "password")
 public class UserDto {
-    private long userId;
-    private long userKey;
     private String username;
     private String password;
-    private Cart cart;
-    private List<Order> orders;
-    private boolean isEnable=true;
-    private LocalDateTime timeOfKeyCreated;
+    private boolean isEnabled;
 
     public UserDto(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    public long getUserKey()  {
-        if (timeOfKeyCreated == null || timeOfKeyCreated.minusHours(1).isAfter(LocalDateTime.now())) {
-            return userKey;
-        } else {
-            return Long.valueOf(null);
-        }
+    public UserDto() {
+        super();
+    }
+
+    public UserDto(String username, boolean isEnabled) {
+        this.username = username;
+        this.isEnabled = isEnabled;
     }
 }

@@ -1,11 +1,11 @@
-package com.kodilla.ecommercee.exeption;
+package com.kodilla.ecommercee.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.CONFLICT)
-public class UserConflictExeption extends Exception {
-    public UserConflictExeption(String message) {
+public class UserConflictException extends Exception {
+    public UserConflictException(String message) {
         super(message);
     }
 }

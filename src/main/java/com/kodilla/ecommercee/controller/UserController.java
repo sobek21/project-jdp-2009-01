@@ -1,11 +1,16 @@
 package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.dto.UserDto;
-import com.kodilla.ecommercee.exeption.UserConflictExeption;
-import com.kodilla.ecommercee.exeption.UserNotFoundExeption;
+import com.kodilla.ecommercee.exception.KeyException;
+import com.kodilla.ecommercee.exception.UserConflictException;
+import com.kodilla.ecommercee.exception.UserNotFoundException;
+import com.kodilla.ecommercee.mapper.UserMapper;
 import com.kodilla.ecommercee.service.UserDbService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import java.awt.*;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -15,18 +20,21 @@ public class UserController {
     @Autowired
     private UserDbService service;
 
-    @RequestMapping(method = RequestMethod.POST, value = "createUser")
-    public void createUser(@RequestParam String username,@RequestParam String password) throws UserConflictExeption {
-        service.addNewUser(username,password);
+    @Autowired
+    private UserMapper userMapper;
+
+    @PostMapping( value = "createUser")
+    public void createUser(@RequestBody UserDto userDto) throws UserConflictException {
+        service.addNewUser(userMapper.mapUserDtoToUser(userDto));
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "blockUser")
-    public UserDto blockUser(@RequestParam Long userId) throws UserNotFoundExeption {
-        return service.blockUser(userId);
+    @PutMapping( value = "blockUser")
+    public UserDto blockUser(@RequestParam Long userId) throws UserNotFoundException {
+        return userMapper.mapUserToUserDto(service.blockUser(userId));
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "createUserKey")
-    public void createUserKey(@RequestParam String username,@RequestParam String password) throws UserNotFoundExeption {
-        service.createKeyForUser(username,password);
+    @PutMapping( value = "createUserKey")
+    public String createUserKey(@RequestParam String username, @RequestParam String password) throws UserNotFoundException, KeyException {
+        return service.createKeyForUser(username, password);
     }
 }
