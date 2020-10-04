@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -22,6 +23,7 @@ public class Group {
     @NotNull
     @Column(name = "GROUP_ID")
     private Long id;
+
     @Column(name = "GROUP_NAME")
     private String groupName;
 
@@ -31,7 +33,7 @@ public class Group {
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL
     )
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
 
     public Group(String groupName) {
         this.groupName = groupName;
