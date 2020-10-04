@@ -19,12 +19,12 @@ import java.util.List;
 public class Product {
 
     @Id
-    @GeneratedValue
     @NotNull
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "PRODUCT_ID")
     private Long productId;
-
-    @Column(name = "NAME")
+  
+    @Column(name = "NAME", unique = true)
     private String productName;
 
     @Column(name = "PRICE")
