@@ -6,13 +6,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
 @Entity
-@Table(name = "GROUPS")
+@Table(name = "PRODUCTS_GROUPS")
 public class Group {
 
     @Id
@@ -22,4 +23,12 @@ public class Group {
 
     @Column(name = "GROUP_NAME")
     private String groupName;
+
+    @OneToMany(
+            targetEntity = Product.class,
+            mappedBy = "group",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    private List<Product> products;
 }

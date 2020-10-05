@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,8 @@ import java.util.List;
 @Table(name = "PRODUCTS")
 public class Product {
     @Id
+    @NotNull
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "PRODUCT_ID")
     private Long productId;
     @Column(name = "NAME")
@@ -29,6 +32,9 @@ public class Product {
     private List<Order> orders;
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     private List<Cart> carts = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "GROUP_ID")
+    private Group group;
 
 
     public Product(Long productId, String productName, double productPrice, int quantity) {
