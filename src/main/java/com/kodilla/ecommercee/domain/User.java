@@ -10,18 +10,16 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "USERS")
 public class User {
 
     @Id
     @GeneratedValue
-    @NotNull
     @Column(name = "USER_ID")
     private long userId;
 

@@ -1,7 +1,10 @@
 package com.kodilla.ecommercee.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -10,6 +13,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Setter
+@Getter
 @Table(name = "ORDERS")
 public class Order {
     @Id
@@ -20,6 +25,7 @@ public class Order {
 
     @JoinColumn(name = "USER_ASSIGNEDTO_ORDER")
     @ManyToOne
+    @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
     private User user;
 
     @ManyToMany(cascade = CascadeType.ALL)
