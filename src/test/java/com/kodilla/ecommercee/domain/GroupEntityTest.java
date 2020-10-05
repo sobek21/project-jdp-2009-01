@@ -41,8 +41,8 @@ public class GroupEntityTest {
     @Test
     public void testRelationshipBetweenGroupAndProduct() {
         Group group = new Group("testGroup");
-        Product product = new Product("testProduct", 20, 1);
-        Product product1 = new Product("testProduct1", 30, 1);
+        Product product = new Product("banan", 20, 1);
+        Product product1 = new Product("jablko", 30, 1);
 
         group.getProducts().add(product);
         group.getProducts().add(product1);
@@ -52,11 +52,17 @@ public class GroupEntityTest {
         groupDao.save(group);
         long groupId = group.getId();
         long groupIdFromProduct = product.getGroup().getId();
+        long productId = product.getProductId();
         long product1Id = product1.getProductId();
+        Optional<Group> readGroup = groupDao.findById(groupId);
         Optional<Product> readProduct = productDao.findById(product1Id);
 
         Assert.assertNotEquals(0, groupId);
         Assert.assertEquals(groupId, groupIdFromProduct);
+
+        productDao.deleteById(productId);
+
+        Assert.assertTrue(readGroup.isPresent());
 
         groupDao.deleteById(groupId);
 
