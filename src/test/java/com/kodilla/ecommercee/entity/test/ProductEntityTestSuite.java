@@ -34,19 +34,28 @@ public class ProductEntityTestSuite {
     @Test
     public void testProductDaoSave() {
         List<Product> products = new ArrayList<>();
-        List<Order> orders = new ArrayList<>();
-        List<Cart> carts = new ArrayList<>();
+//        List<Order> orders = new ArrayList<>();
+//        List<Cart> carts = new ArrayList<>();
 
         Product buty = new Product(1L, "buty",
                 150.0, 1);
+        productDao.save(buty);
+
         Order order = new Order();
+        orderDao.save(order);
+
         Cart cart = new Cart();
+        cartDao.save(cart);
+
         User piotr = new User();
+
         Group obuwie = new Group();
+        groupDao.save(obuwie);
 
         piotr.setUserId(3L);
         piotr.setUsername("Piotr");
         piotr.setPassword("jsmith123");
+        userDao.save(piotr);
 
         order.setOrderId(2L);
 
@@ -54,17 +63,13 @@ public class ProductEntityTestSuite {
 
 
         obuwie.setProducts(products);
+        products.add(buty);
         buty.setGroup(obuwie);
 
 
-//        userDao.save(piotr);
-//        cartDao.save(cart);
-//        groupDao.save(obuwie);
-        productDao.save(buty);
-//        orderDao.save(order);
 
-        long id = buty.getProductId();
-//
-        assertEquals(1, id);
+        long id = order.getOrderId();
+
+        assertEquals(2L, id);
     }
 }
