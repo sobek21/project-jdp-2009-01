@@ -1,9 +1,6 @@
 package com.kodilla.ecommercee.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -35,12 +32,4 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "GROUP_ID", referencedColumnName = "GROUP_ID")
     private Group group;
-
-
-    public Product(Long productId, String productName, double productPrice, int quantity) {
-        this.productId = productId;
-        this.productName = productName;
-        this.productPrice = productPrice;
-        this.quantity = quantity;
-    }
 }
