@@ -1,4 +1,4 @@
-package com.kodilla.ecommercee.exception;
+package com.kodilla.ecommercee.exception.user;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

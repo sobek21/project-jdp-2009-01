@@ -32,7 +32,7 @@ public class UserTest {
         //given
         User user = new User();
         user.setPassword("Hasło");
-        user.setUserKey(123L);
+        user.setUserKey("Key");
         user.setUsername("Michał");
 
         //when
@@ -53,7 +53,7 @@ public class UserTest {
         //given
         User user = new User();
         user.setPassword("Hasło");
-        user.setUserKey(123L);
+        user.setUserKey("Key");
         user.setUsername("Michał");
 
         //when
@@ -77,7 +77,7 @@ public class UserTest {
         //given
         User user = new User();
         user.setPassword("Hasło");
-        user.setUserKey(123L);
+        user.setUserKey("Key");
         user.setUsername("Michał");
         userDao.save(user);
         long userId = user.getUserId();
@@ -101,7 +101,7 @@ public class UserTest {
         //given
         User user = new User();
         user.setPassword("New Password");
-        user.setUserKey(123L);
+        user.setUserKey("Key");
         user.setUsername("New Name");
         userDao.save(user);
         long userId = user.getUserId();
@@ -111,7 +111,7 @@ public class UserTest {
 
         //then
         Assert.assertEquals(readUser.getPassword(), "New Password");
-        Assert.assertEquals(readUser.getUserKey(), 123L);
+        Assert.assertEquals(readUser.getUserKey(), "Key");
         Assert.assertEquals(readUser.getUsername(), "New Name");
 
         //clean up
@@ -124,18 +124,18 @@ public class UserTest {
         Order order = new Order();
         User user = new User();
         user.setPassword("New Password");
-        user.setUserKey(123L);
+        user.setUserKey("Key");
         user.setUsername("New Name");
         order.setUser(user);
         user.setOrders(Collections.singletonList(order));
 
         //when
         userDao.save(user);
-        long orderId=order.getOrderId();
-        boolean orderWasPresent=orderDao.existsById(orderId);
+        long orderId = order.getOrderId();
+        boolean orderWasPresent = orderDao.existsById(orderId);
 
         userDao.delete(user);
-        boolean orderIsPresentAfterRemoveUser=orderDao.existsById(orderId);
+        boolean orderIsPresentAfterRemoveUser = orderDao.existsById(orderId);
 
         //then
         Assert.assertTrue(orderWasPresent);
@@ -150,18 +150,18 @@ public class UserTest {
         Cart cart = new Cart();
         User user = new User();
         user.setPassword("New Password");
-        user.setUserKey(123L);
+        user.setUserKey("Key");
         user.setUsername("New Name");
         cart.setUser(user);
         user.setCart(cart);
         userDao.save(user);
 
-        long cartId=cart.getCartId();
+        long cartId = cart.getCartId();
 
         //when
-        boolean cartWasPresent=cartDao.existsById(cartId);
+        boolean cartWasPresent = cartDao.existsById(cartId);
         userDao.delete(user);
-        boolean cartIsPresentAfterRemoveUser=cartDao.existsById(cartId);
+        boolean cartIsPresentAfterRemoveUser = cartDao.existsById(cartId);
 
         //then
         Assert.assertTrue(cartWasPresent);

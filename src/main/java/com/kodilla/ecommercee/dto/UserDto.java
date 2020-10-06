@@ -1,26 +1,28 @@
 package com.kodilla.ecommercee.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
-@JsonIgnoreProperties(allowSetters = true,value = "password")
+@Setter
 public class UserDto {
+    private long userId;
     private String username;
     private String password;
-    private boolean isEnabled;
+    private CartDto cartDto;
+    private List<OrderDto> ordersDto = new ArrayList<>();
+    private boolean isEnable;
+
 
     public UserDto(String username, String password) {
         this.username = username;
         this.password = password;
-    }
-
-    public UserDto() {
-        super();
-    }
-
-    public UserDto(String username, boolean isEnabled) {
-        this.username = username;
-        this.isEnabled = isEnabled;
     }
 }

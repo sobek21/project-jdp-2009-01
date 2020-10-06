@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @Entity
 @NoArgsConstructor
-@Table(name = "USERS")
+@Table(name = "USERS", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
 public class User {
 
     @Id
@@ -25,7 +25,7 @@ public class User {
     private String userKey;
 
     @NotNull
-    @Column(name = "USERNAME", unique = true)
+    @Column(name = "USERNAME")
     private String username;
 
     @NotNull
@@ -47,12 +47,19 @@ public class User {
     @Column(name = "IS_ENABLE")
     private boolean isEnable;
 
-    public User(String username,String password) {
-        this.username=username;
-        this.password=password;
+
+    public User(long userId, @NotNull String username, @NotNull String password, Cart cart, List<Order> orders, boolean isEnable) {
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
+        this.cart = cart;
+        this.orders = orders;
+        this.isEnable = isEnable;
     }
 
-    public void addOrder(Order order){
+
+    public void addOrder(Order order) {
         orders.add(order);
     }
+
 }
