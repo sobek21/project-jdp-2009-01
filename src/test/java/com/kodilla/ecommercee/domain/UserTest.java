@@ -173,7 +173,10 @@ public class UserTest {
     public void compareIdOfOrderTest() {
         //given
         Order order = new Order();
-        User user = new User("Michał", "Hasło", 123);
+        User user = new User();
+        user.setPassword("New Password");
+        user.setUserKey("Key");
+        user.setUsername("New Name");
         order.setUser(user);
         user.setOrders(Collections.singletonList(order));
 
@@ -192,7 +195,10 @@ public class UserTest {
     public void compareIdOfCartTest() {
         //given
         Cart cart = new Cart();
-        User user = new User("Michał", "Hasło", 123);
+        User user = new User();
+        user.setPassword("New Password");
+        user.setUserKey("Key");
+        user.setUsername("New Name");
         cart.setUser(user);
         user.setCart(cart);
 
