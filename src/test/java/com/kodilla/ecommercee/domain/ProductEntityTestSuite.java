@@ -48,7 +48,7 @@ public class ProductEntityTestSuite {
         try {
             productDao.deleteById(id);
         } catch (Exception e) {
-
+            System.out.println(e);
         }
     }
 
@@ -86,7 +86,7 @@ public class ProductEntityTestSuite {
             productDao.deleteById(bananaId);
             productDao.deleteById(iceCreamId);
         } catch (Exception e){
-
+            System.out.println(e);
         }
     }
 
@@ -98,6 +98,9 @@ public class ProductEntityTestSuite {
         Product sandals = new Product();
         Product banana = new Product();
 
+        productDao.save(sandals);
+        productDao.save(banana);
+
         sandals.setProductName("sandals");
         sandals.setQuantity(1);
         sandals.setProductPrice(150.0);
@@ -105,11 +108,6 @@ public class ProductEntityTestSuite {
         banana.setProductName("banana");
         banana.setQuantity(4);
         banana.setProductPrice(4.0);
-
-        productDao.save(sandals);
-        long sandalsId = sandals.getProductId();
-        productDao.save(banana);
-        long bananaId = banana.getProductId();
 
         Group shoes = new Group();
         Group foods = new Group();
@@ -133,11 +131,10 @@ public class ProductEntityTestSuite {
         assertEquals(banana.getGroup().getId(), foods.getProducts().get(0).getGroup().getId());
 
         try {
-            productDao.deleteById(sandalsId);
-            productDao.deleteById(bananaId);
+            productDao.deleteAll();
             groupDao.deleteAll();
         } catch (Exception e) {
-
+            System.out.println(e);
         }
     }
 
@@ -185,7 +182,7 @@ public class ProductEntityTestSuite {
             productDao.deleteById(bananaId);
             cartDao.deleteAll();
         } catch (Exception e) {
-
+            System.out.println(e);
         }
     }
 
@@ -204,11 +201,6 @@ public class ProductEntityTestSuite {
         banana.setProductName("banana");
         banana.setQuantity(4);
         banana.setProductPrice(4.0);
-
-        productDao.save(banana);
-        long bananaId = banana.getProductId();
-        productDao.save(sandals);
-        long sandalsId = sandals.getProductId();
 
         shoesList.add(sandals);
         foodsList.add(banana);
@@ -238,11 +230,10 @@ public class ProductEntityTestSuite {
         assertEquals(order1.getOrderId(), sandals.getOrders().get(1).getOrderId());
         assertEquals(order1.getOrderId(), banana.getOrders().get(1).getOrderId());
         try {
-            productDao.deleteById(sandalsId);
-            productDao.deleteById(bananaId);
+            productDao.deleteAll();
             orderDao.deleteAll();
         } catch (Exception e) {
-
+            System.out.println(e);
         }
     }
 
@@ -254,6 +245,9 @@ public class ProductEntityTestSuite {
         Product sandals = new Product();
         Product banana = new Product();
 
+        productDao.save(banana);
+        productDao.save(sandals);
+
         sandals.setProductName("sandals");
         sandals.setQuantity(1);
         sandals.setProductPrice(150.0);
@@ -261,13 +255,6 @@ public class ProductEntityTestSuite {
         banana.setProductName("banana");
         banana.setQuantity(4);
         banana.setProductPrice(4.0);
-
-        productDao.save(banana);
-        long bananaId = banana.getProductId();
-        Optional<Product> readBanana = productDao.findById(bananaId);
-        productDao.save(sandals);
-        long sandalsId = sandals.getProductId();
-        Optional<Product> readSandlas = productDao.findById(sandalsId);
 
         shoesList.add(sandals);
         foodsList.add(banana);
@@ -353,10 +340,11 @@ public class ProductEntityTestSuite {
         assertEquals(banana.getCarts().get(0).getCartId(), cart.getCartId());
         assertEquals(banana.getCarts().get(1).getCartId(), cart1.getCartId());
 
+        long sandalsId = sandals.getProductId();
         productDao.deleteById(sandalsId);
-        readSandlas = productDao.findById(sandalsId);
+        Optional<Product> readSandals = productDao.findById(sandalsId);
 
-        assertFalse(readSandlas.isPresent());
+        assertFalse(readSandals.isPresent());
         assertTrue(readOrder.isPresent());
         assertTrue(readOrder1.isPresent());
         assertTrue(readFoods.isPresent());
@@ -364,8 +352,9 @@ public class ProductEntityTestSuite {
         assertTrue(readCart.isPresent());
         assertTrue(readCart1.isPresent());
 
+        long bananaId = banana.getProductId();
         productDao.deleteById(bananaId);
-        readBanana = productDao.findById(bananaId);
+        Optional<Product> readBanana = productDao.findById(bananaId);
 
         assertFalse(readBanana.isPresent());
         assertTrue(readOrder.isPresent());
@@ -380,7 +369,7 @@ public class ProductEntityTestSuite {
             orderDao.deleteAll();
             cartDao.deleteAll();
         } catch (Exception e) {
-
+            System.out.println(e);
         }
     }
 }
