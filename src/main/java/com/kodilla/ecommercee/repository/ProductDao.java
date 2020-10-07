@@ -15,9 +15,10 @@ public interface ProductDao extends CrudRepository<Product, Long> {
     List<Product> findAll();
 
     @Override
-    Optional<Product> findById(Long id);
+    Optional<Product> findById(Long productId);
 
     @Override
-    void deleteById(Long id);
+    void deleteById(Long productId);
 
+    boolean existsByProductName(String productName);
 }
