@@ -54,19 +54,19 @@ public class GroupEntityTest {
         long groupIdFromProduct = product.getGroup().getId();
         long productId = product.getProductId();
         long product1Id = product1.getProductId();
-        Optional<Group> readGroup = groupDao.findById(groupId);
-        Optional<Product> readProduct = productDao.findById(product1Id);
 
         Assert.assertNotEquals(0, groupId);
         Assert.assertEquals(groupId, groupIdFromProduct);
 
         productDao.deleteById(productId);
 
+        Optional<Group> readGroup = groupDao.findById(groupId);
         Assert.assertTrue(readGroup.isPresent());
 
         groupDao.deleteById(groupId);
 
-        Assert.assertTrue(readProduct.isPresent());
+        Optional<Product> readProduct = productDao.findById(product1Id);
+        Assert.assertFalse(readProduct.isPresent());
     }
 
     @Test
@@ -76,11 +76,9 @@ public class GroupEntityTest {
         groupDao.save(group);
         long id = group.getId();
 
-        Assert.assertEquals("testGroup", group.getGroupName());
-
         group.setGroupName("testGroupUpdate");
 
-        Assert.assertEquals("testGroupUpdate", group.getGroupName());
+        Assert.assertNotEquals("testGroup", group.getGroupName());
 
         groupDao.deleteById(id);
     }
