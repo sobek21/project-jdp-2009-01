@@ -48,4 +48,11 @@ public class Product {
         this.productPrice = productPrice;
         this.quantity = quantity;
     }
+
+    public Product(Long productId, String productName, double productPrice, int quantity) {
+        this.productId = productId;
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.quantity = quantity;
+    }
 }
