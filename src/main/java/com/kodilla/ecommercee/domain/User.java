@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,12 @@ public class User {
     private long userId;
 
     @Column(name = "USER_KEY")
-    private String userKey;
+    private String userKey=null;
+
+    public void setUserKey(String userKey) {
+        this.userKey = userKey;
+        setKeyTimeCreated(LocalDateTime.now());
+    }
 
     @NotNull
     @Column(name = "USERNAME")
@@ -44,22 +50,24 @@ public class User {
     )
     private List<Order> orders = new ArrayList<>();
 
+    public void addOrder(Order order) {
+        orders.add(order);
+    }
+
     @Column(name = "IS_ENABLE")
-    private boolean isEnable;
+    private boolean isEnable=true;
 
+    private LocalDateTime keyTimeCreated=null;
 
-    public User(long userId, @NotNull String username, @NotNull String password, Cart cart, List<Order> orders, boolean isEnable) {
+    private void setKeyTimeCreated(LocalDateTime localDateTime) {
+        this.keyTimeCreated = localDateTime;
+    }
+
+    public User(long userId, @NotNull String username, @NotNull String password, Cart cart, List<Order> orders) {
         this.userId = userId;
         this.username = username;
         this.password = password;
         this.cart = cart;
         this.orders = orders;
-        this.isEnable = isEnable;
     }
-
-
-    public void addOrder(Order order) {
-        orders.add(order);
-    }
-
 }

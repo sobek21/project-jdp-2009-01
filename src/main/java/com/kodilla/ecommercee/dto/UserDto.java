@@ -18,7 +18,6 @@ public class UserDto {
     private String password;
     private CartDto cartDto;
     private List<OrderDto> ordersDto = new ArrayList<>();
-    private boolean isEnable;
 
 
     public UserDto(String username, String password) {

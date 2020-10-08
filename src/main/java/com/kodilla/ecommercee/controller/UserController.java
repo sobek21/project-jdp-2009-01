@@ -20,6 +20,11 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
+    @GetMapping(value = "checkKeyValidity")
+    public String checkKeyValidityById(@RequestParam long userId) throws UserNotFoundException, KeyException {
+        return service.checkValidityById(userId);
+    }
+
     @PostMapping(value = "createUser")
     public void createUser(@RequestBody UserDto userDto) throws UserConflictException {
         service.addNewUser(userMapper.mapUserDtoToUser(userDto));

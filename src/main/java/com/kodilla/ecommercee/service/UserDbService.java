@@ -10,8 +10,7 @@ import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
-import java.util.Optional;
+import java.time.LocalDateTime;
 
 @Slf4j
 @Service
@@ -30,7 +29,7 @@ public class UserDbService {
     }
 
     public User blockUser(long userId) throws UserNotFoundException {
-        User user = findById(userId).orElseThrow(() -> new UserNotFoundException("Użytkownik nie istnieje"));
+        User user = findById(userId);
         user.setEnable(false);
         updateUser(user);
         log.info("Użytkownik " + user.getUsername() + " został zablokowany");
@@ -38,18 +37,27 @@ public class UserDbService {
     }
 
     public String createKeyForUser(String username, String password) throws UserNotFoundException, KeyException {
-        User user = findUserByUsernameAndPassword(username, password)
-                .orElseThrow(() -> new UserNotFoundException("Użytkownik nie istnieje lub podano błędne dane"));
-        if (user.getUserKey() == null) {
-            String key = generateKey(user);
-            removeKey(user);
-            return key;
+        User user = findUserByUsernameAndPassword(username, password);
+        if (!checkKeyValidityForUser(user) && user.isEnable()) {
+            return generateKeyForUser(user);
         } else {
-            throw new KeyException("Uzytkownik posiada ważny klucz");
+            throw new KeyException("Uzytkownik posiada już ważny klucz");
         }
     }
 
-    private String generateKey(User user) {
+    public String checkValidityById(long userId) throws UserNotFoundException, KeyException {
+        User user = findById(userId);
+        if (checkKeyValidityForUser(user) && user.isEnable()) {
+            return "Użytkownik: " + user.getUsername() + " posiada ważny klucz: " + user.getUserKey();
+        } else
+            throw new KeyException("Klucz nie istnieje lub wygasł");
+    }
+
+    private boolean checkKeyValidityForUser(User user) {
+        return user.getUserKey() != null && user.getKeyTimeCreated().plusHours(1).isAfter(LocalDateTime.now());
+    }
+
+    private String generateKeyForUser(User user) {
         String key = RandomString.make(10);
         user.setUserKey(key);
         updateUser(user);
@@ -58,23 +66,8 @@ public class UserDbService {
         return message;
     }
 
-    private void removeKey(User user) {
-        Thread thread = new Thread(() ->
-        {
-            try {
-                Thread.sleep(Duration.ofHours(1).toMillis());
-                user.setUserKey(null);
-                updateUser(user);
-                log.info("Klucz użytkownika " + user.getUsername() + " wygasł");
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-        thread.start();
-    }
-
-    private Optional<User> findById(long userId) {
-        return userDao.findById(userId);
+    private User findById(long userId) throws UserNotFoundException {
+        return userDao.findById(userId).orElseThrow(() -> new UserNotFoundException("Użytkownik nie istnieje lub podano błędne dane"));
     }
 
     private void updateUser(User user) {
@@ -82,7 +75,8 @@ public class UserDbService {
         log.info("Uaktualniono użytkownika: " + user.getUsername() + ", o numerze Id: " + user.getUserId());
     }
 
-    private Optional<User> findUserByUsernameAndPassword(String username, String password) {
-        return userDao.findByUsernameAndPassword(username, password);
+    private User findUserByUsernameAndPassword(String username, String password) throws UserNotFoundException {
+        return userDao.findByUsernameAndPassword(username, password)
+                .orElseThrow(() -> new UserNotFoundException("Użytkownik nie istnieje lub podano błędne dane"));
     }
 }
