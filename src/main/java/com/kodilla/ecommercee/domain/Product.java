@@ -50,5 +50,9 @@ public class Product {
     }
 
     public Product(Long productId, String productName, double productPrice, int quantity) {
+        this.productId = productId;
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.quantity = quantity;
     }
 }

@@ -34,21 +34,13 @@ public class ProductController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createProduct", consumes = APPLICATION_JSON_VALUE)
-    public void createProduct(@RequestBody ProductDto productDto) {
-        try {
-            productDbService.saveProduct(productMapper.mapToProduct(productDto));
-        } catch (ProductConflictException pce) {
-            pce.printStackTrace();
-        }
+    public void createProduct(@RequestBody ProductDto productDto) throws ProductConflictException {
+        productDbService.saveProduct(productMapper.mapToProduct(productDto));
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateProduct")
     public ProductDto updateProduct(@RequestBody ProductDto productDto) throws ProductConflictException {
-        try {
-            return productMapper.mapToProductDto(productDbService.saveProduct(productMapper.mapToProduct(productDto)));
-        }catch(ProductConflictException pce) {
-            throw new ProductConflictException();
-        }
+        return productMapper.mapToProductDto(productDbService.saveProduct(productMapper.mapToProduct(productDto)));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteProduct")
