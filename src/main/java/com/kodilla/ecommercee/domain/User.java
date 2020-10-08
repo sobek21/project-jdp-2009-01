@@ -6,6 +6,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +25,9 @@ public class User {
 
     @Column(name = "USER_KEY")
     private String userKey;
+
+    @Column(name = "KEY_TIMESTAMP")
+    private Instant userKeyValidity;
 
     @NotNull
     @Column(name = "USERNAME")

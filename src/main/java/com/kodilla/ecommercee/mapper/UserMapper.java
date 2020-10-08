@@ -5,6 +5,9 @@ import com.kodilla.ecommercee.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class UserMapper {
 
@@ -34,5 +37,11 @@ public class UserMapper {
                 orderMapper.orderListToOrderTo(user.getOrders()),
                 user.isEnable()
         );
+    }
+
+    public List<UserDto> mapToUserDtoList(final List<User> productList) {
+        return productList.stream()
+                .map(this::mapUserToUserDto)
+                .collect(Collectors.toList());
     }
 }

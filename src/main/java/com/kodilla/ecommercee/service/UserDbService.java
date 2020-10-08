@@ -11,7 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -29,12 +34,19 @@ public class UserDbService {
         }
     }
 
-    public User blockUser(long userId) throws UserNotFoundException {
-        User user = findById(userId).orElseThrow(() -> new UserNotFoundException("Użytkownik nie istnieje"));
-        user.setEnable(false);
-        updateUser(user);
-        log.info("Użytkownik " + user.getUsername() + " został zablokowany");
-        return user;
+    public List<User> blockUsers() {
+
+        List<User> blockUsersList = getAllActiveUsers();
+
+        for (User user: blockUsersList) {
+            if (user.getUserKeyValidity().equals(Instant.now())) {
+                user.setEnable(false);
+                user.setUserKey(null);
+                updateUser(user);
+            }
+        }
+        return blockUsersList;
+                
     }
 
     public String createKeyForUser(String username, String password) throws UserNotFoundException, KeyException {
@@ -42,35 +54,26 @@ public class UserDbService {
                 .orElseThrow(() -> new UserNotFoundException("Użytkownik nie istnieje lub podano błędne dane"));
         if (user.getUserKey() == null) {
             String key = generateKey(user);
-            removeKey(user);
             return key;
         } else {
             throw new KeyException("Uzytkownik posiada ważny klucz");
         }
     }
 
+    private List<User> getAllActiveUsers() {
+        return userDao.findAll().stream()
+                .filter(user -> user.isEnable() == true)
+                .collect(Collectors.toList());
+    }
+
     private String generateKey(User user) {
         String key = RandomString.make(10);
         user.setUserKey(key);
+        user.setUserKeyValidity(Instant.now().plus(1, ChronoUnit.HOURS));
         updateUser(user);
-        String message = "Wytworzono klucz dla użytkownika " + user.getUsername() + ": " + key;
+        String message = "Wytworzono klucz dla użytkownika " + user.getUsername() + ": " + key + "\n ważny do: " + user.getUserKeyValidity();
         log.info(message);
         return message;
-    }
-
-    private void removeKey(User user) {
-        Thread thread = new Thread(() ->
-        {
-            try {
-                Thread.sleep(Duration.ofHours(1).toMillis());
-                user.setUserKey(null);
-                updateUser(user);
-                log.info("Klucz użytkownika " + user.getUsername() + " wygasł");
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-        thread.start();
     }
 
     private Optional<User> findById(long userId) {
