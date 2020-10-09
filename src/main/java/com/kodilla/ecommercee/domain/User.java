@@ -23,12 +23,7 @@ public class User {
     private long userId;
 
     @Column(name = "USER_KEY")
-    private String userKey=null;
-
-    public void setUserKey(String userKey) {
-        this.userKey = userKey;
-        setKeyTimeCreated(LocalDateTime.now());
-    }
+    private String userKey = null;
 
     @NotNull
     @Column(name = "USERNAME")
@@ -41,8 +36,8 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "cart_id")
     private Cart cart;
-
     @OneToMany(
+
             targetEntity = Order.class,
             mappedBy = "user",
             cascade = CascadeType.ALL,
@@ -50,18 +45,11 @@ public class User {
     )
     private List<Order> orders = new ArrayList<>();
 
-    public void addOrder(Order order) {
-        orders.add(order);
-    }
-
     @Column(name = "IS_ENABLE")
-    private boolean isEnable=true;
+    private boolean isEnable = true;
 
-    private LocalDateTime keyTimeCreated=null;
-
-    private void setKeyTimeCreated(LocalDateTime localDateTime) {
-        this.keyTimeCreated = localDateTime;
-    }
+    @Column(name = "KEY_TIME_CREATED")
+    private LocalDateTime keyTimeCreated = null;
 
     public User(long userId, @NotNull String username, @NotNull String password, Cart cart, List<Order> orders) {
         this.userId = userId;
@@ -69,5 +57,18 @@ public class User {
         this.password = password;
         this.cart = cart;
         this.orders = orders;
+    }
+
+    public void setUserKey(String userKey) {
+        this.userKey = userKey;
+        setKeyTimeCreated(LocalDateTime.now());
+    }
+
+    public void addOrder(Order order) {
+        orders.add(order);
+    }
+
+    private void setKeyTimeCreated(LocalDateTime localDateTime) {
+        this.keyTimeCreated = localDateTime;
     }
 }

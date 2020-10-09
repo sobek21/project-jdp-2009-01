@@ -36,12 +36,15 @@ public class UserDbService {
         return user;
     }
 
-    public String createKeyForUser(String username, String password) throws UserNotFoundException, KeyException {
+    public String createKeyForUser(String username, String password) throws UserNotFoundException, KeyException, UserConflictException {
         User user = findUserByUsernameAndPassword(username, password);
-        if (!checkKeyValidityForUser(user) && user.isEnable()) {
-            return generateKeyForUser(user);
-        } else {
+        if (!user.isEnable()) {
+            throw new UserConflictException("Użytkownik zablokowany");
+        }
+        if (checkKeyValidityForUser(user)) {
             throw new KeyException("Uzytkownik posiada już ważny klucz");
+        } else {
+            return generateKeyForUser(user);
         }
     }
 

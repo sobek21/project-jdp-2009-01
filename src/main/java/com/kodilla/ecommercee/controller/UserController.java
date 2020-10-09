@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @PutMapping(value = "createUserKey")
-    public String createUserKey(@RequestParam String username, @RequestParam String password) throws UserNotFoundException, KeyException {
+    public String createUserKey(@RequestParam String username, @RequestParam String password) throws UserNotFoundException, KeyException, UserConflictException {
         return service.createKeyForUser(username, password);
     }
 }
