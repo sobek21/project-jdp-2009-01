@@ -48,8 +48,15 @@ public class OrderEntityTest {
     @Test
     public void findAllOrders() {
         //Given
-        User user = new User("Mati","Test",1);
-        User user2 = new User("Mati1","Test1",2);
+        User user = new User();
+        user.setUsername("Test");
+        user.setPassword("Hasło");
+        user.setUserKey("key");
+
+        User user2 = new User();
+        user2.setUsername("Test2");
+        user2.setPassword("Hasło2");
+        user2.setUserKey("key2");
 
         List<Product> products = new ArrayList<>();
         Order order = new Order();
@@ -71,8 +78,16 @@ public class OrderEntityTest {
     @Test
     public void findOrder() {
         //Given
-        User user = new User("Test", "Haslo", 1);
-        User user2 = new User("Test2", "Haslo2", 2);
+        User user = new User();
+        user.setUsername("Test");
+        user.setPassword("Hasło");
+        user.setUserKey("key");
+
+        User user2 = new User();
+        user2.setUsername("Test2");
+        user2.setPassword("Hasło2");
+        user2.setUserKey("key2");
+
         List<Product> products = new ArrayList<>();
         Order order = new Order(user, products);
         Order order2 = new Order(user2, products);
@@ -91,8 +106,16 @@ public class OrderEntityTest {
     @Test
     public void deleteById() {
         //Given
-        User user = new User("Test", "Haslo", 1);
-        User user2 = new User("Test2", "Haslo2", 2);
+        User user = new User();
+        user.setUsername("Test");
+        user.setPassword("Hasło");
+        user.setUserKey("key");
+
+        User user2 = new User();
+        user2.setUsername("Test2");
+        user2.setPassword("Hasło2");
+        user2.setUserKey("key2");
+
         List<Product> products = new ArrayList<>();
         Order order = new Order(user, products);
         Order order2 = new Order(user2, products);
@@ -108,6 +131,49 @@ public class OrderEntityTest {
         //Cleanup
         orderDao.deleteAll();
         userDao.deleteAll();
+    }
+    @Test
+    public void relationWithProductsAndUsers() {
+        //Given
+        User user = new User();
+        user.setUsername("Test");
+        user.setPassword("Hasło");
+        user.setUserKey("key");
+
+        List<Product> products = new ArrayList<>();
+        Product product = new Product();
+        products.add(product);
+        Order order = new Order(user, products);
+
+        //When
+        orderDao.save(order);
+
+        long id = order.getOrderId();
+        Optional<Order> orderExist = orderDao.findById(id);
+
+        long user1 = user.getUserId();
+        Optional<User> userExist = userDao.findById(user1);
+
+        long productId = product.getProductId();
+        Optional<Product> productExist = productDao.findById(productId);
+
+        Assert.assertTrue(orderExist.isPresent());
+
+        orderDao.deleteById(id);
+        //Then
+        Assert.assertTrue(userExist.isPresent());
+        Assert.assertTrue(productExist.isPresent());
+
+        long deleteId = order.getOrderId();
+        Optional<Order> orderExistDelete = orderDao.findById(id);
+
+        Assert.assertFalse(orderExistDelete.isPresent());
+
+        //Clean
+        userDao.deleteAll();
+        orderDao.deleteAll();
+        productDao.deleteAll();
+
     }
     }
 
