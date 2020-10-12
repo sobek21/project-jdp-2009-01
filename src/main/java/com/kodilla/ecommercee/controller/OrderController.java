@@ -18,13 +18,14 @@ public class OrderController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getOrder")
-    public OrderDto getOrder(@RequestParam Long orderId){
+    public OrderDto getOrder(@RequestParam Long orderId) {
         return new OrderDto(1L, new UserDto("john", "jsmith123"),
                 new ArrayList<>());
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "addNewOrder")
-    public void addNewOrder(@RequestBody OrderDto orderDto) {}
+    public void addNewOrder(@RequestBody OrderDto orderDto) {
+    }
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateOrder")
     public OrderDto updateOrder(@RequestBody OrderDto orderDto) {
@@ -33,5 +34,6 @@ public class OrderController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteOrder")
-    public void deleteOrder(@RequestParam Long orderId) {}
+    public void deleteOrder(@RequestParam Long orderId) {
+    }
 }
