@@ -15,12 +15,16 @@ import java.util.List;
 @Table(name = "PRODUCTS")
 public class Product {
 
+    @ManyToOne
+    @JoinColumn(name = "group_id", referencedColumnName = "group_id")
+    public Group group;
+
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "PRODUCT_ID")
     private Long productId;
-  
+
     @Column(name = "NAME", unique = true)
     private String productName;
 
@@ -35,9 +39,6 @@ public class Product {
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     private List<Cart> carts = new ArrayList<>();
-    @ManyToOne
-    @JoinColumn(name = "GROUP_ID", referencedColumnName = "GROUP_ID")
-    private Group group;
 
     public Product(final String productName, final double productPrice, final int quantity) {
         this.productName = productName;

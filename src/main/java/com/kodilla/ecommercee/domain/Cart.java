@@ -32,7 +32,7 @@ public class Cart {
     )
     private List<Product> products = new ArrayList<>();
 
-    @OneToOne(mappedBy = "cart",cascade = CascadeType.PERSIST)
+    @OneToOne(mappedBy = "cart", cascade = CascadeType.PERSIST)
     private User User;
 
     public Cart(long cartId, List<Product> products) {
