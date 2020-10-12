@@ -1,6 +1,9 @@
 package com.kodilla.ecommercee.domain;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -12,8 +15,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "PRODUCTS")
+@Table(name = "PRODUCT")
 public class Product {
+
+    @ManyToOne
+    @JoinColumn(name = "group_id", referencedColumnName = "group_id")
+    public Group group;
 
     @Id
     @NotNull
@@ -35,9 +42,6 @@ public class Product {
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     private List<Cart> carts = new ArrayList<>();
-    @ManyToOne
-    @JoinColumn(name = "GROUP_ID", referencedColumnName = "GROUP_ID")
-    private Group group;
 
     public Product(final String productName, final double productPrice, final int quantity) {
         this.productName = productName;
