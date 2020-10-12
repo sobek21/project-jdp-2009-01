@@ -37,10 +37,10 @@ public class Product {
     @Column(name = "QUANTITY")
     private int quantity;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products", fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     private List<Order> orders;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products", fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
     private List<Cart> carts = new ArrayList<>();
 
     public Product(final String productName, final double productPrice, final int quantity) {

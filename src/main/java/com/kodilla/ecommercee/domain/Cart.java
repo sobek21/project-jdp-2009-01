@@ -24,7 +24,7 @@ public class Cart {
     @Column(name = "CART_ID")
     private long cartId;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinTable(
             name = "CART_PRODUCT",
             joinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")},

@@ -24,8 +24,7 @@ public class Order {
     private Long orderId;
 
     @JoinColumn(name = "USER_ASSIGNEDTO_ORDER")
-    @ManyToOne
-    @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private User user;
 
     @ManyToMany(cascade = CascadeType.ALL)

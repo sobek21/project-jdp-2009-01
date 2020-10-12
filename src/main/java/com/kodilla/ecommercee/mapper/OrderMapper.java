@@ -28,4 +28,10 @@ public class OrderMapper {
                 .map(o -> new OrderDto(o.getOrderId(), o.getUser(), o.getProducts()))
                 .collect(Collectors.toList());
     }
+
+    public List<Order> mapToOrderList(final List<OrderDto> orderDtoList) {
+        return orderDtoList.stream()
+                .map(od -> new Order(od.getOrderId(), od.getUser(), od.getProducts()))
+                .collect(Collectors.toList());
+    }
 }

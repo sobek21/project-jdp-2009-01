@@ -20,7 +20,7 @@ public class UserMapper {
                 userDto.getUsername(),
                 userDto.getPassword(),
                 cartMapper.cartDtoToCart(userDto.getCartDto()),
-                orderMapper.mapToOrderDtoList(userDto.getOrdersDto())
+                orderMapper.mapToOrderList(userDto.getOrdersDto())
         );
     }
 
