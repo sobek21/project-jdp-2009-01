@@ -9,18 +9,19 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
+
 @NoArgsConstructor
 @Getter
 public class CartDto {
 
     private long cartId;
-    private long userId;
-    private List<ProductDto> productDtoList = new ArrayList<>();
+    private User user;
+    private List<ProductDto> productDtoList;
 
-    public CartDto(long cartId, long userId) {
+    public CartDto(long cartId, User user, List<ProductDto> productDtoList) {
         this.cartId = cartId;
-        this.userId = userId;
+        this.user = user;
+        this.productDtoList = productDtoList;
     }
 
 
