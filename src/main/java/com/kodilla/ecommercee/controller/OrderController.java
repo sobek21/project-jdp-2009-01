@@ -18,7 +18,7 @@ public class OrderController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getOrder")
-    public OrderDto getOrder(@RequestParam Long orderId){
+    public OrderDto getOrder(@RequestParam Long orderId) {
         return new OrderDto(1L, new User(), new ArrayList<>());
     }
 
