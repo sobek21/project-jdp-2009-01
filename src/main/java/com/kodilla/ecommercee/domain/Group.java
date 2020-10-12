@@ -39,8 +39,8 @@ public class Group {
         this.groupName = groupName;
     }
 
-    public Group(String groupName, List<Product> products) {
+    public Group(final Long id, final String groupName) {
         this.groupName = groupName;
-        this.products = products;
+        this.id = id;
     }
 }

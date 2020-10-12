@@ -54,7 +54,6 @@ public class CartEntityTest {
         Cart cart = new Cart();
 
         User user = new User();
-        user.setUserKey(12345);
         user.setUsername("Username");
         user.setPassword("Password");
         user.setCart(cart);
@@ -137,7 +136,6 @@ public class CartEntityTest {
         product.setProductPrice(10);
         product.setQuantity(100);
 
-        user.setUserKey(12345);
         user.setUsername("testUsername");
         user.setPassword("Password");
         user.setCart(cart);

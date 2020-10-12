@@ -7,5 +7,5 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional
-public interface OrderDao extends CrudRepository<Order,Long> {
+public interface OrderDao extends CrudRepository<Order, Long> {
 }

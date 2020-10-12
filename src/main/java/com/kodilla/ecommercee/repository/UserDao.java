@@ -12,6 +12,10 @@ import java.util.Optional;
 @Repository
 public interface UserDao extends CrudRepository<User, Long> {
 
+    boolean existsByUsername(String username);
+
+    Optional<User> findByUsernameAndPassword(String username, String password);
+
     @Override
     Optional<User> findById(Long id);
 }
