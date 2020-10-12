@@ -12,12 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Transactional
 public class OrderEntityTest {
 
     @Autowired
@@ -148,25 +150,24 @@ public class OrderEntityTest {
         //When
         orderDao.save(order);
 
+        long user1 = user.getUserId();
+        long productId = product.getProductId();
+
+
         long id = order.getOrderId();
         Optional<Order> orderExist = orderDao.findById(id);
-
-        long user1 = user.getUserId();
-        Optional<User> userExist = userDao.findById(user1);
-
-        long productId = product.getProductId();
-        Optional<Product> productExist = productDao.findById(productId);
-
         Assert.assertTrue(orderExist.isPresent());
 
         orderDao.deleteById(id);
+
+        Optional<Product> productExist = productDao.findById(productId);
+        Optional<User> userExist = userDao.findById(user1);
+
         //Then
         Assert.assertTrue(userExist.isPresent());
         Assert.assertTrue(productExist.isPresent());
 
-        long deleteId = order.getOrderId();
         Optional<Order> orderExistDelete = orderDao.findById(id);
-
         Assert.assertFalse(orderExistDelete.isPresent());
 
         //Clean
@@ -175,6 +176,5 @@ public class OrderEntityTest {
         productDao.deleteAll();
 
     }
-    }
-
+}
 
