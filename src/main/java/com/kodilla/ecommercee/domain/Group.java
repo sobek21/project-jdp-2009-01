@@ -13,13 +13,13 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "\"GROUPS\"")
 @Setter
 @Getter
+@Table(name = "\"GROUPS\"")
 public class Group {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     @NotNull
     @Column(name = "GROUP_ID")
     private Long id;
@@ -44,5 +44,3 @@ public class Group {
         this.id = id;
     }
 }
-
-
