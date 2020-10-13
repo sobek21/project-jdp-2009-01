@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,11 +15,12 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "CART")
+@Table(name = "CARTS")
 public class Cart {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
     @Column(name = "CART_ID")
     private long cartId;
 
@@ -33,5 +35,8 @@ public class Cart {
     @OneToOne(mappedBy = "cart", cascade = CascadeType.PERSIST)
     private User User;
 
-
+    public Cart(long cartId, List<Product> products) {
+        this.cartId = cartId;
+        this.products = products;
+    }
 }

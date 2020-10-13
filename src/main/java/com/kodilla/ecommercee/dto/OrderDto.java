@@ -11,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@NoArgsConstructor
 public class OrderDto {
     private Long orderId;
     private User user;

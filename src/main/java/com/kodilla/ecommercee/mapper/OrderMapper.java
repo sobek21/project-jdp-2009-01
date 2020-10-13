@@ -1,6 +1,8 @@
 package com.kodilla.ecommercee.mapper;
 
+import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.domain.Order;
+import com.kodilla.ecommercee.dto.GroupDto;
 import com.kodilla.ecommercee.dto.OrderDto;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +24,7 @@ public class OrderMapper {
                 order.getUser(),
                 order.getProducts());
     }
-
+  
     public List<OrderDto> mapToOrderDtoList(final List<Order> orderList) {
         return orderList.stream()
                 .map(o -> new OrderDto(o.getOrderId(), o.getUser(), o.getProducts()))

@@ -23,7 +23,6 @@ public class UserMapper {
                 orderMapper.mapToOrderList(userDto.getOrdersDto())
         );
     }
-
     public UserDto mapUserToUserDto(User user) {
         return new UserDto(
                 user.getUserId(),
