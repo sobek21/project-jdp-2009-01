@@ -15,12 +15,20 @@ public class CartMapper {
     @Autowired
     private ProductMapper productMapper;
 
-    public CartDto cartToCartDto(final Cart cart) {
-        return new CartDto();
+    public CartDto mapToCartDto(final Cart cart) {
+        return new CartDto(
+                cart.getCartId(),
+               userMapper.mapUserToUserDto(cart.getUser()),
+               productMapper.mapToTaskDtoList(cart.getProducts())
+        );
     }
 
-    public Cart cartDtoToCart(final CartDto cartDto) {
-        return new Cart();
+    public Cart mapToCart(final CartDto cartDto) {
+        return new Cart(
+                cartDto.getCartId(),
+                productMapper.mapToTaskListDto(cartDto.getProductDtoList()),
+                userMapper.mapUserDtoToUser(cartDto.getUserDto())
+        );
 
     }
 }

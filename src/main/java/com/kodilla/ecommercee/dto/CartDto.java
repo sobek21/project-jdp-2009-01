@@ -15,14 +15,12 @@ import java.util.List;
 public class CartDto {
 
     private long cartId;
-    private User user;
+    private UserDto userDto;
     private List<ProductDto> productDtoList;
 
-    public CartDto(long cartId, User user, List<ProductDto> productDtoList) {
+    public CartDto(long cartId, UserDto userDto, List<ProductDto> productDtoList) {
         this.cartId = cartId;
-        this.user = user;
+        this.userDto = userDto;
         this.productDtoList = productDtoList;
     }
-
-
 }
