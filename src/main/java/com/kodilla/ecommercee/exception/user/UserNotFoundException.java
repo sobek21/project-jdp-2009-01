@@ -9,4 +9,8 @@ public class UserNotFoundException extends Exception {
         super(message);
     }
 
+    public UserNotFoundException(Long id) {
+        super(String.valueOf(id));
+    }
+
 }
