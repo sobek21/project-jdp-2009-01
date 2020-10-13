@@ -8,7 +8,7 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
+
 @AllArgsConstructor
 @Getter
 @Setter
@@ -23,5 +23,8 @@ public class UserDto {
     public UserDto(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public UserDto() {
     }
 }

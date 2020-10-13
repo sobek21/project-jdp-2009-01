@@ -19,7 +19,7 @@ public class UserMapper {
                 userDto.getUserId(),
                 userDto.getUsername(),
                 userDto.getPassword(),
-                cartMapper.cartDtoToCart(userDto.getCartDto()),
+                cartMapper.mapToCart(userDto.getCartDto()),
                 orderMapper.mapToOrderList(userDto.getOrdersDto())
         );
     }
@@ -29,7 +29,7 @@ public class UserMapper {
                 user.getUserId(),
                 user.getUsername(),
                 user.getPassword(),
-                cartMapper.cartToCartDto(user.getCart()),
+                cartMapper.mapToCartDto(user.getCart()),
                 orderMapper.mapToOrderDtoList(user.getOrders())
         );
     }
