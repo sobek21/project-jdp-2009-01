@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/v1")
+@RequestMapping("/v1/")
 public class GroupController {
     @Autowired
     private GroupDbService groupDbService;

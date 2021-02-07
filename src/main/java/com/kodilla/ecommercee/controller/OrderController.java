@@ -9,7 +9,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/v1")
+@RequestMapping("/v1/")
 public class OrderController {
 
     @RequestMapping(method = RequestMethod.GET, value = "getOrders")
